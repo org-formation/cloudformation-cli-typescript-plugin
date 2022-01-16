@@ -1,85 +1,133 @@
 {
-    "name": "@org-formation/cfn-rpdk",
-    "version": "1.0.1",
-    "description": "The CloudFormation Resource Provider Development Kit (RPDK) allows you to author your own resource providers that can be used by CloudFormation. This plugin library helps to provide runtime bindings for the execution of your providers by CloudFormation.",
-    "private": false,
-    "main": "dist/index.js",
-    "directories": {
-        "test": "tests"
-    },
-    "files": [
-        "dist"
+  "name": "@org-formation/cfn-rpdk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/org-formation/cloudformation-cli-typescript-plugin.git"
+  },
+  "scripts": {
+    "build": "npx projen build",
+    "clobber": "npx projen clobber",
+    "compat": "npx projen compat",
+    "compile": "npx projen compile",
+    "default": "npx projen default",
+    "docgen": "npx projen docgen",
+    "eslint": "npx projen eslint",
+    "package": "npx projen package",
+    "package-all": "npx projen package-all",
+    "package:go": "npx projen package:go",
+    "package:js": "npx projen package:js",
+    "package:python": "npx projen package:python",
+    "post-compile": "npx projen post-compile",
+    "post-upgrade": "npx projen post-upgrade",
+    "pre-compile": "npx projen pre-compile",
+    "test": "npx projen test",
+    "test:update": "npx projen test:update",
+    "test:watch": "npx projen test:watch",
+    "upgrade": "npx projen upgrade",
+    "upgrade-projen": "npx projen upgrade-projen",
+    "watch": "npx projen watch",
+    "projen": "npx projen"
+  },
+  "author": {
+    "name": "org-formation",
+    "organization": true
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12",
+    "@typescript-eslint/eslint-plugin": "^5",
+    "@typescript-eslint/parser": "^5",
+    "eslint": "^8",
+    "eslint-import-resolver-node": "^0.3.3",
+    "eslint-import-resolver-typescript": "^2.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.6.3",
+    "jest-junit": "^13",
+    "jsii": "^1.52.1",
+    "jsii-diff": "^1.52.1",
+    "jsii-docgen": "^4.2.42",
+    "json-schema": "^0.2.3",
+    "npm-check-updates": "^12",
+    "projen": "^0.50.32",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.1.2"
+  },
+  "dependencies": {
+    "@org-formation/tombok": "^0.0.1",
+    "autobind-decorator": "^2.4.0",
+    "class-transformer": "^0.3.1",
+    "reflect-metadata": "^0.1.13",
+    "string.prototype.replaceall": "^1.0.3",
+    "uuid": "^7.0.2"
+  },
+  "bundledDependencies": [
+    "@org-formation/tombok",
+    "autobind-decorator",
+    "class-transformer",
+    "reflect-metadata",
+    "string.prototype.replaceall",
+    "uuid"
+  ],
+  "main": "lib/index.js",
+  "license": "Apache-2.0",
+  "version": "0.0.0",
+  "jest": {
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.ts?(x)",
+      "<rootDir>/(test|src)/**/?(*.)+(spec|test).ts?(x)"
     ],
-    "publishConfig": {
-        "access": "public"
-    },
-    "scripts": {
-        "build": "npx tsc",
-        "prepack": "npm run build",
-        "lint": "npx eslint --ext .ts,.js .",
-        "lint:fix": "npx eslint --fix --ext .ts,.js .",
-        "test": "npx jest",
-        "test:debug": "npx --node-arg=--inspect jest --runInBand"
-    },
-    "engines": {
-        "node": ">=12.0.0",
-        "npm": ">=6.9.0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/org-formation/cloudformation-cli-typescript-plugin.git"
-    },
-    "author": "org-formation",
-    "license": "Apache License 2.0",
-    "bugs": {
-        "url": "https://github.com/org-formation/cloudformation-cli-typescript-plugin/issues"
-    },
-    "homepage": "https://github.com/org-formation/cloudformation-cli-typescript-plugin#readme",
-    "dependencies": {
-        "@org-formation/tombok": "^0.0.1",
-        "autobind-decorator": "^2.4.0",
-        "class-transformer": "^0.3.1",
-        "reflect-metadata": "^0.1.13",
-        "string.prototype.replaceall": "^1.0.3",
-        "uuid": "^7.0.2"
-    },
-    "devDependencies": {
-        "@tsconfig/node12": "^1.0.7",
-        "@types/jest": "^26.0.15",
-        "@types/node": "^12.0.0",
-        "@types/uuid": "^7.0.0",
-        "@typescript-eslint/eslint-plugin": "^4.8.1",
-        "@typescript-eslint/parser": "^4.8.1",
-        "aws-sdk": "~2.712.0",
-        "eslint": "^7.13.0",
-        "eslint-config-prettier": "^6.15.0",
-        "eslint-import-resolver-node": "^0.3.3",
-        "eslint-import-resolver-typescript": "^2.3.0",
-        "eslint-plugin-import": "^2.22.1",
-        "eslint-plugin-prefer-arrow": "^1.2.2",
-        "eslint-plugin-prettier": "^3.1.3",
-        "jest": "^26.6.3",
-        "jest-circus": "^26.6.3",
-        "prettier": "^2.2.0",
-        "ts-jest": "^26.4.4",
-        "ts-node": "^9.0.0",
-        "typescript": "^4.1.2",
-        "worker-pool-aws-sdk": "^0.1.0"
-    },
-    "peerDependencies": {
-        "aws-sdk": "^2.712.0"
-    },
-    "peerDependenciesMeta": {
-        "aws-sdk": {
-            "optional": true
+    "clearMocks": true,
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "clover",
+      "cobertura",
+      "text"
+    ],
+    "coverageDirectory": "coverage",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "watchPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "test-reports"
         }
-    },
-    "prettier": {
-        "parser": "typescript",
-        "singleQuote": true,
-        "tabWidth": 4,
-        "printWidth": 88,
-        "trailingComma": "es5",
-        "endOfLine": "lf"
+      ]
+    ],
+    "preset": "ts-jest",
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.dev.json"
+      }
     }
+  },
+  "types": "lib/index.d.ts",
+  "stability": "stable",
+  "jsii": {
+    "outdir": "dist",
+    "targets": {
+      "python": {
+        "distName": "cfn-rpdk",
+        "module": "cfn_rpdk"
+      },
+      "go": {
+        "moduleName": "cfn-rpdk"
+      }
+    },
+    "tsc": {
+      "outDir": "lib",
+      "rootDir": "src"
+    }
+  },
+  "//": "~~ Generated by projen. To modify, edit .projenrc.js and run \"npx projen\"."
 }

@@ -36,7 +36,7 @@ setup(
     # package_data -> use MANIFEST.in instead
     include_package_data=True,
     zip_safe=True,
-    python_requires=">=3.8",
+    python_requires=">=3.10",
     install_requires=[
         "cloudformation-cli>=0.1.14",
         "zipfile38>=0.0.3,<0.2",
@@ -60,10 +60,9 @@ setup(
         "Topic :: Software Development :: Code Generators",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
     ],
     keywords="Amazon Web Services AWS CloudFormation",
 )

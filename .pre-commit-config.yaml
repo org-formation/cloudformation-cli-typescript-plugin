@@ -27,7 +27,7 @@ repos:
       - id: check-merge-conflict
       # - id: check-yaml  # have jinja yml templates so skipping this
   - repo: https://github.com/pycqa/flake8
-    rev: "5.0.4"
+    rev: "7.1.2"
     hooks:
     - id: flake8
       additional_dependencies:
@@ -45,19 +45,18 @@ repos:
       - id: python-check-mock-methods
       - id: python-no-log-warn
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.1
+    rev: 1.8.3
     hooks:
       - id: bandit
         files: "^python/"
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.26.0
+  - repo: local
     hooks:
       - id: eslint
-        args: [--fix]
-        types: []
-        files: (.*.js$|.*.ts$)
-        additional_dependencies:
-          - eslint@8.21.0
+        name: eslint
+        description: Run eslint from local node_modules
+        entry: npx eslint --fix
+        language: system
+        files: \.(js|ts)$
   - repo: local
     hooks:
       - id: pylint-local

@@ -66,9 +66,7 @@ export interface Callable<R extends Array<any>, T> {
     (...args: R): T;
 }
 
-// @ts-ignore
-// eslint-disable-next-line
-interface Integer extends BigInt {
+interface Integer {
     /**
      * Defines the default JSON representation of
      * Integer (BigInt) to be a number.
@@ -78,11 +76,12 @@ interface Integer extends BigInt {
     /** Returns the primitive value of the specified object. */
     valueOf(): integer;
 
+    toString(radix?: number): string;
+
     readonly [Symbol.toStringTag]: 'Integer';
 }
 
-// @ts-ignore
-interface IntegerConstructor extends BigIntConstructor {
+interface IntegerConstructor {
     (value?: bigint | integer | boolean | number | string): bigint;
     readonly prototype: Integer;
     /**
@@ -96,36 +95,40 @@ interface IntegerConstructor extends BigIntConstructor {
 /**
  * Wrapper with additional JSON serialization for bigint type
  */
-// @ts-ignore
-export const Integer: IntegerConstructor = new Proxy(BigInt, {
-    // @ts-ignore
-    apply(
-        target: IntegerConstructor,
-        _thisArg: unknown,
-        argArray?: unknown[]
-    ): integer {
-        target.prototype.toJSON = function (): number {
-            return Number(this.valueOf());
-        };
-        const isSafeInteger = (value: bigint): boolean => {
-            if (
-                value &&
-                (value < BigInt(Number.MIN_SAFE_INTEGER) ||
-                    value > BigInt(Number.MAX_SAFE_INTEGER))
-            ) {
-                return false;
+export const Integer: IntegerConstructor = new Proxy(
+    BigInt as unknown as IntegerConstructor,
+    {
+        apply(
+            target: IntegerConstructor,
+            _thisArg: unknown,
+            argArray: unknown[]
+        ): integer {
+            target.prototype.toJSON = function (): number {
+                return Number(this.valueOf());
+            };
+            const isSafeInteger = (value: bigint): boolean => {
+                if (
+                    value &&
+                    (value < BigInt(Number.MIN_SAFE_INTEGER) ||
+                        value > BigInt(Number.MAX_SAFE_INTEGER))
+                ) {
+                    return false;
+                }
+                return true;
+            };
+            target.isSafeInteger = isSafeInteger;
+            const value = target(
+                ...(argArray as [bigint | integer | boolean | number | string])
+            );
+            if (value && !isSafeInteger(value)) {
+                throw new RangeError(
+                    `Value is not a safe integer: ${value.toString()}`
+                );
             }
-            return true;
-        };
-        target.isSafeInteger = isSafeInteger;
-        // @ts-expect-error argArray is unknown
-        const value = target(...argArray);
-        if (value && !isSafeInteger(value)) {
-            throw new RangeError(`Value is not a safe integer: ${value.toString()}`);
-        }
-        return value;
-    },
-}) as IntegerConstructor;
+            return value;
+        },
+    }
+) as IntegerConstructor;
 
 export enum Action {
     Create = 'CREATE',
